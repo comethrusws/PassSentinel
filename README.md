@@ -11,13 +11,6 @@ PassSentinel is a work in progress, and i would really appreciate your support a
 - Clear input fields with a single click. 🔄
 - View and decrypt stored passwords as needed. 👀🔓
 
-## How to Use 📝
-1. Enter the website URL, username, and password in the respective fields. 🌐👤🔑
-2. Click the "Add Password" button to store the credentials securely. 🆕🔒
-3. Use the "Generate Password" button to create random, strong passwords. 🆓🔑
-4. Clear input fields with the "Clear Entries" button. 🧹
-5. Existing passwords are displayed in the list below. 📋
-
 ## Installation ⚙️
 - Ensure you have Python installed. 🐍
 - Install the required packages using pip: 📦
