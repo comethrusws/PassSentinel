@@ -8,6 +8,14 @@ import string
 # Generate a Fernet key for encryption
 key = Fernet.generate_key()
 fernet = Fernet(key)
+# Save the key to a file
+with open('key.key', 'wb') as key_file:
+    key_file.write(key)
+
+# Load the key from the file when the application starts
+with open('key.key', 'rb') as key_file:
+    key = key_file.read()
+fernet = Fernet(key)
 
 # Connect to the SQLite database
 conn = sqlite3.connect('passwords.db')

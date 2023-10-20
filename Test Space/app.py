@@ -7,11 +7,11 @@ import string
 
 # Load the encryption key from a file or generate a new one
 try:
-    with open('encryption_key.key', 'rb') as key_file:
+    with open('/Test Space/encryption_key.key', 'rb') as key_file:
         key = key_file.read()
 except FileNotFoundError:
     key = Fernet.generate_key()
-    with open('encryption_key.key', 'wb') as key_file:
+    with open('./Test Space/encryption_key.key', 'wb') as key_file:
         key_file.write(key)
 
 fernet = Fernet(key)
