@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+from tkinter.simpledialog import askstring
 import sqlite3
 from cryptography.fernet import Fernet
 import random
@@ -7,7 +8,7 @@ import string
 
 # Load the encryption key from a file or generate a new one
 try:
-    with open('/Test Space/encryption_key.key', 'rb') as key_file:
+    with open('./Test Space/encryption_key.key', 'rb') as key_file:
         key = key_file.read()
 except FileNotFoundError:
     key = Fernet.generate_key()
@@ -66,6 +67,32 @@ def generate_password():
     password_entry.delete(0, tk.END)
     password_entry.insert(0, password)
 
+#Function to update a password
+def update_password():
+    selected_password = passwords_listbox.get(passwords_listbox.curselection())
+    if not selected_password:
+        messagebox.showerror("Error", "Please select a password to update.")
+        return
+
+    # Split the selected password into parts
+    parts = selected_password.split(", ")
+    website, username, password = parts[0].split(": ")[1], parts[1].split(": ")[1], parts[2].split(": ")[1]
+
+    # Prompt the user for the new password
+    new_password = askstring("Update Password", f"Enter a new password for {website}:")
+    if new_password is not None:
+        # Encrypt the new password
+        encrypted_password = fernet.encrypt(new_password.encode())
+
+        # Update the password in the database
+        cursor.execute("UPDATE passwords SET password = ? WHERE website = ? AND username = ?",
+                       (encrypted_password, website, username))
+        conn.commit()
+
+        display_passwords()
+        messagebox.showinfo("Success", "Password updated successfully!")
+
+
 # Function to clear input fields
 def clear_entries():
     website_entry.delete(0, tk.END)
@@ -99,6 +126,8 @@ generate_button = tk.Button(text="Generate Password", command=generate_password)
 generate_button.grid(row=2, column=2)
 clear_button = tk.Button(text="Clear Entries", command=clear_entries)
 clear_button.grid(row=3, column=0)
+update_button = tk.Button(text="Update Password", command=update_password)
+update_button.grid(row=3, column=2)
 
 # Password list
 passwords_listbox = tk.Listbox(width=50)

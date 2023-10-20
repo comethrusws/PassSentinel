@@ -33,6 +33,7 @@ PassSentinel is a work in progress, and i would really appreciate your support a
 Contributions to PassSentinel are welcome. Feel free to fork the repository, make improvements, and submit pull requests. cheers! 🙌
 
 ## Future Improvements 🚀
-- Add the ability to update and delete passwords. 🔄❌
-- Implement a master password for added security. 🔐🔒
-- Improve the user interface and add icons for a more polished look. 💅🌟
+- Add the ability to update passwords. 🔄 (✅)
+- Add the ability to delete passwords. ❌ ()
+- Implement a master password for added security. 🔐🔒 ()
+- Improve the user interface and add icons for a more polished look. 💅🌟 ()
