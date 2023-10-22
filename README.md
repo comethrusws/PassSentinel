@@ -15,7 +15,7 @@ PassSentinel is a work in progress, and i would really appreciate your support a
 - Ensure you have Python installed. 🐍
 - Install the required packages using pip: 📦
   ```
-  pip install tkinter cryptography
+  pip install tkinter cryptography flask
   ```
 - Run the application by executing the Python script: 🚀
   ```
