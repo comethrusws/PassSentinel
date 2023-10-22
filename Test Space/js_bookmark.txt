@@ -1,0 +1,21 @@
+javascript:(function() {
+    var selectedText = window.getSelection().toString();
+    var website = prompt("Enter the website:");
+    var username = prompt("Enter the username:");
+    var url = "http://localhost:3000/autofill?website=" + encodeURIComponent(website) + "&username=" + encodeURIComponent(username);
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.password) {
+                var passwordField = document.querySelector('input[type="password"]');
+                if (passwordField) {
+                    passwordField.value = data.password;
+                } else {
+                    alert("No password field found on this page.");
+                }
+            } else {
+                alert("Password not found for the provided website and username.");
+            }
+        })
+        .catch(error => alert("An error occurred while fetching the password: " + error));
+})();

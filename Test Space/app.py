@@ -5,6 +5,9 @@ import sqlite3
 from cryptography.fernet import Fernet
 import random
 import string
+from flask import Flask, request, jsonify, g
+
+app = Flask(__name__)
 
 # Load the encryption key from a file or generate a new one
 try:
@@ -161,3 +164,26 @@ passwords_listbox.grid(row=4, column=0, columnspan=3)
 display_passwords()
 
 window.mainloop()
+
+#Browser Integration
+@app.route('/autofill', methods=['GET'])
+def autofill_password():
+    website = request.args.get('website')
+    username = request.args.get('username')
+    cursor = get_db().cursor()
+    cursor.execute("SELECT password FROM passwords WHERE website = ? AND username = ?", (website, username))
+    password_row = cursor.fetchone()
+    if password_row:
+        decrypted_password = fernet.decrypt(password_row[0]).decode()
+        return jsonify({"password": decrypted_password})
+    else:
+        return jsonify({"password": None})
+
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect('./Test Space/passwords.db')
+    return db
+
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=3000)  # can be replaced with your desired port number
