@@ -92,6 +92,28 @@ def update_password():
         display_passwords()
         messagebox.showinfo("Success", "Password updated successfully!")
 
+#Fubction to deletea password
+def delete_password():
+    selected_password = passwords_listbox.get(passwords_listbox.curselection())
+    if not selected_password:
+        messagebox.showerror("Error", "Please select a password to delete.")
+        return
+
+    # Split the selected password into parts
+    parts = selected_password.split(", ")
+    website, username, password = parts[0].split(": ")[1], parts[1].split(": ")[1], parts[2].split(": ")[1]
+
+    # Confirm the deletion
+    confirmation = messagebox.askyesno("Confirm Deletion", f"Do you want to delete the password for {website} (Username: {username})?")
+    if confirmation:
+        # Delete the password from the database
+        cursor.execute("DELETE FROM passwords WHERE website = ? AND username = ?", (website, username))
+        conn.commit()
+
+        display_passwords()
+        messagebox.showinfo("Success", "Password deleted successfully!")
+
+
 
 # Function to clear input fields
 def clear_entries():
@@ -128,6 +150,8 @@ clear_button = tk.Button(text="Clear Entries", command=clear_entries)
 clear_button.grid(row=3, column=0)
 update_button = tk.Button(text="Update Password", command=update_password)
 update_button.grid(row=3, column=2)
+delete_button = tk.Button(text="Delete Password", command=delete_password)
+delete_button.grid(row=3, column=3)
 
 # Password list
 passwords_listbox = tk.Listbox(width=50)

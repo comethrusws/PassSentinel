@@ -27,6 +27,6 @@ Contributions to PassSentinel are welcome. Feel free to fork the repository, mak
 
 ## Future Improvements 🚀
 - Add the ability to update passwords. 🔄 (✅)
-- Add the ability to delete passwords. ❌ ()
+- Add the ability to delete passwords. ❌ (✅)
 - Implement a master password for added security. 🔐🔒 ()
 - Improve the user interface and add icons for a more polished look. 💅🌟 ()
